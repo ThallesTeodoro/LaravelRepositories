@@ -37,7 +37,7 @@ class {{ class }} implements {{ class }}Interface
         $item = $this->model->find($id);
 
         if ($item != null) {
-            $item = $item->toArray();
+            $item = $this->dataFormat($item);
             $item = $this->arrayToStdClass($item);
         } else {
             $item = null;
@@ -55,6 +55,9 @@ class {{ class }} implements {{ class }}Interface
     {
         $items = $this->model
             ->all()
+            ->map(function ($item) {
+                return $this->dataFormat($item);
+            })
             ->toArray();
         $items = $this->arrayToStdClass($items);
         $items = new Collection($items);
@@ -71,8 +74,8 @@ class {{ class }} implements {{ class }}Interface
     public function add(array $data) : ?stdClass
     {
         $item = $this->model
-            ->create($data)
-            ->toArray();
+            ->create($data);
+        $item = $this->dataFormat($item);
         $item = $this->arrayToStdClass($item);
 
         return $item;
@@ -91,7 +94,7 @@ class {{ class }} implements {{ class }}Interface
 
         if ($item != null) {
             $item->update($data);
-            $item = $item->toArray();
+            $item = $this->dataFormat($item);
             $item = $this->arrayToStdClass($item);
         } else {
             $item = null;
@@ -126,6 +129,18 @@ class {{ class }} implements {{ class }}Interface
     public function count() : int
     {
         return $this->model->count();
+    }
+
+    /**
+     * Format data
+     *
+     * @param Model $model
+     *
+     * @return array
+     */
+    public function dataFormat(Model $model) : array
+    {
+        return $model->toArray();
     }
 
     /**

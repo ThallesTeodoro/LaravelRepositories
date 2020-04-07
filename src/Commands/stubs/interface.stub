@@ -4,6 +4,7 @@ namespace {{ namespace }};
 
 use stdClass;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 interface {{ class }}
 {
@@ -53,4 +54,21 @@ interface {{ class }}
      * @return integer
      */
     function count() : int;
+
+    /**
+     * Format data
+     *
+     * @param Model $model
+     *
+     * @return array
+     */
+    function dataFormat(Model $model) : array;
+
+    /**
+     * Convert array to stdClass
+     *
+     * @param array $array
+     * @return stdClass
+     */
+    function arrayToStdClass(array $array) : stdClass;
 }
