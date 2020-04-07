@@ -1,0 +1,27 @@
+{
+    "name": "thalles/repositories-commands",
+    "description": "Artisan commands to create repositories",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thalles Martins",
+            "email": "thallesmjteodoro@outlook.com"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^5.8",
+        "php": ">=7.1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "ThallesTeodoro\\Repositories\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ThallesTeodoro\\Repositories\\RepositoriesServiceProvider"
+            ]
+        }
+    }
+}

@@ -1,0 +1,16 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ rootNamespace }}Interfaces\{{ class }}Interface;
+
+class {{ class }} extends Repository implements {{ class }}Interface
+{
+    /**
+     * Constructor method
+     */
+    public function __construct()
+    {
+        parent::__construct(new \{{ rootNamespace }}{{ model }}());
+    }
+}
