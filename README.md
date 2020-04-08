@@ -16,7 +16,7 @@ composer require thalles/repositories-commands
 
 ### **2. Configuration**
 
-Run the following command to create the main Repository and Interface for this repository
+Run the following command to create the main Repository and Interface for this repository.
 
 ```
 php artisan repository:setup
