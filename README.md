@@ -16,13 +16,13 @@ composer require thalles/repositories-commands
 
 ### **2. Configuration**
 
-Run the following command to create the main Ropository and Interface for this repository
+Run the following command to create the main Repository and Interface for this repository
 
 ```
 php artisan repository:setup
 ```
 
-> Be attention on terminal output. You will need to copy the output and paste on register method of AppServiceProvider.
+> Pay attention to the terminal output. You will need to copy the output and paste on register method of AppServiceProvider.
 
 
 ### **3. Usage**
@@ -32,9 +32,9 @@ To create a new repository, use the following command.
 ```
 php artisan repository:new RepositoryName ModelName
 ```
-> Again, be attention on terminal output.
+> Again, pay attention to the terminal output.
 
-> The fisrt argument is the repository name. The second is the model that you want to use, if your model was not on default path, you can informate the path to file.
+> The fisrt argument is the repository name. The second is the model that you want to use. If your model was not on default path, you can inform the path to file.
 
 Exemple:
 
@@ -42,7 +42,7 @@ Exemple:
 php artisan repository:new UserRepository Models/User
 ```
 
-Use the interface on your code implamentation.
+Use the interface on your code implementation.
 
 ```
 <?php
@@ -140,7 +140,7 @@ function delete(int $id) : bool;
 function count() : int;
 ```
 
-If you need to create another methods for your repository, fist register the method on Interface, after implements the method on Repository.
+If you need to create another methods for your repository, fist register the method on the Interface, after implementing the method on Repository.
 
 - Interface.
 
