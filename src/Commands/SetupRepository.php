@@ -39,7 +39,9 @@ class SetupRepository extends Command
     {
         $this->call('repository:add', ['name' => 'Repository']);
         $this->call('interface:add', ['name' => 'RepositoryInterface']);
-        $this->line('Add the following line on registrer method of AppServiceProvider:');
-        $this->info('$this->app->singleton("App\Interfaces\RepositoryInterface", "App\Repositories\Repository");');
+        $this->call('unit-of-work:interface', ['name' => 'UnitOfWorkInterface']);
+        $this->call('unit-of-work:repository', ['name' => 'UnitOfWork']);
+        $this->line('Add the following line on register method of AppServiceProvider:');
+        $this->info('$this->app->singleton("App\Interfaces\UnitOfWorkInterface", "App\Repositories\UnitOfWork");');
     }
 }

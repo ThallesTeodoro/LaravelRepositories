@@ -9,6 +9,8 @@ use ThallesTeodoro\Repositories\Commands\CreateInterface;
 use ThallesTeodoro\Repositories\Commands\CreateRepository;
 use ThallesTeodoro\Repositories\Commands\CreateNewInterface;
 use ThallesTeodoro\Repositories\Commands\CreateNewRepository;
+use ThallesTeodoro\Repositories\Commands\CreateUnitOfWork;
+use ThallesTeodoro\Repositories\Commands\CreateUnitOfWorkInterface;
 
 class RepositoriesServiceProvider extends ServiceProvider
 {
@@ -37,6 +39,8 @@ class RepositoriesServiceProvider extends ServiceProvider
                 CreateRepository::class,
                 CreateNewInterface::class,
                 CreateNewRepository::class,
+                CreateUnitOfWork::class,
+                CreateUnitOfWorkInterface::class,
             ]);
         }
     }

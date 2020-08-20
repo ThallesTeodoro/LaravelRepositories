@@ -1,0 +1,35 @@
+<?php
+
+namespace {{ namespace }};
+
+interface {{ class }}
+{
+    /**
+     * Begin the database transaction
+     *
+     * @return void
+     */
+    function beginTransaction();
+
+    /**
+     * Commit the transaction changes
+     *
+     * @return void
+     */
+    function commit();
+
+    /**
+     * Rollback the transaction changes
+     *
+     * @return void
+     */
+    function rollback();
+
+    /**
+     * Magic method get to get the repository attribute
+     *
+     * @param mixed $attribute
+     * @return mixed
+     */
+    function __get($attribute);
+}

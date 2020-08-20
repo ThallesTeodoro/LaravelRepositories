@@ -149,7 +149,7 @@ class {{ class }} implements {{ class }}Interface
     * @param array $array
     * @return stdClass
     */
-    protected function arrayToStdClass(array $array) : stdClass
+    public function arrayToStdClass(array $array) : stdClass
     {
         $object = new stdClass();
 

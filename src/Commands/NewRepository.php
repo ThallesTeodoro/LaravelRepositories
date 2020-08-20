@@ -43,7 +43,5 @@ class NewRepository extends Command
 
         $this->call('repository:create', ['name' => $name, 'model' => $model]);
         $this->call('interface:create', ['name' => $interfaceName]);
-        $this->line('Add the following line on registrer method of AppServiceProvider:');
-        $this->info('$this->app->singleton("App\Interfaces\\' . $interfaceName . '", "App\Repositories\\' . $name . '");');
     }
 }

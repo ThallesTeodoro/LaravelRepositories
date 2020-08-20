@@ -1,0 +1,58 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ rootNamespace }}Interfaces\{{ class }}Interface;
+use Illuminate\Support\Facades\DB;
+
+class {{ class }} implements {{ class }}Interface
+{
+    //
+
+    /**
+     * Begin the database transaction
+     *
+     * @return void
+     */
+    public function beginTransaction()
+    {
+        DB::beginTransaction();
+    }
+
+    /**
+     * Commit the transaction changes
+     *
+     * @return void
+     */
+    public function commit()
+    {
+        DB::commit();
+    }
+
+    /**
+     * Rollback the transaction changes
+     *
+     * @return void
+     */
+    public function rollback()
+    {
+        DB::rollBack();
+    }
+
+    /**
+     * Magic method get to get the repository attribute
+     *
+     * @param mixed $attribute
+     * @return mixed
+     */
+    public function __get($attribute)
+    {
+        if (!$this->$attribute) {
+            $class = '{{ namespace }}\\';
+            $class .= $attribute;
+            $this->$attribute = new $class();
+        }
+
+        return $this->$attribute;
+    }
+}
