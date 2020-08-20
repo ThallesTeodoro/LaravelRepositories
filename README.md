@@ -1,6 +1,8 @@
 # LaravelRepositories
 ## Artisan commands to create repositories
 
+This package uses the Unit Of Work Pattern.
+
 ### **Requirements**
 - PHP >= 7.1.3
 - laravel/framework ^5.8
@@ -32,7 +34,6 @@ To create a new repository, use the following command.
 ```
 php artisan repository:new RepositoryName ModelName
 ```
-> Again, pay attention to the terminal output.
 
 > The fisrt argument is the repository name. The second is the model that you want to use. If your model was not on default path, you can inform the path to file.
 
@@ -42,42 +43,91 @@ Exemple:
 php artisan repository:new UserRepository Models/User
 ```
 
-Use the interface on your code implementation.
+Add the repository attribute to the UnitOfWork class.
+
+```
+<?php
+
+namespace App\Repositories;
+
+use App\Interfaces\UnitOfWorkInterface;
+use Illuminate\Support\Facades\DB;
+
+class UnitOfWork implements UnitOfWorkInterface
+{
+    /**
+     * UserRepository instance
+     *
+     * @return void
+     */
+    private $UserRepository;
+
+    /**
+     * ProductRepository instance
+     *
+     * @return void
+     */
+    private $ProductRepository;
+
+    ...
+}
+
+```
+
+Use the UnitOfWorkInterface on your code implementation.
 
 ```
 <?php
 
 namespace App\Http\Controllers;
 
-use App\Interfaces\UserRepositoryInterface;
+use App\Interfaces\UnitOfWorkInterface;
 
 class UserController extends Controller
 {
     /**
-     * User repository instance
+     * UnitOfWork instance
      *
-     * @var App\Interfaces\UserRepositoryInterface
+     * @var App\Interfaces\UnitOfWorkInterface
      */
-    private $userRepository;
+    private $uow;
 
     /**
      * Constructor method
      *
-     * @param App\Interfaces\UserRepositoryInterface $userRepository
+     * @param App\Interfaces\UnitOfWorkInterface $uow
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UnitOfWorkInterface $uow)
     {
-        $this->userRepository = $userRepository;
+        $this->uow = $uow;
     }
 
     public function index()
     {
-        return $this->userRepository->all();
+        try {
+            $this->uow->beginTransaction();
+
+            $user = $this->uow->UserRepository->add([
+                'name' => 'User Name',
+                'email' => 'email@email.com',
+                'password' => bcrypt('secret')
+            ]);
+
+            if ($user) {
+                $this->uow->commit();
+                return $this->uow->UserRepository->all();
+            }
+
+            throw new Exception();
+        } catch (Exception $e) {
+            $this->uow->rollback();
+            return back()->with('error', 'Internal Server Error.');
+        }
     }
 }
 ```
 
-### **4. Default Methods**
+### **4. Default Repository Methods**
 
 This package makes available some methods to be used on CRUD.
 
@@ -138,6 +188,16 @@ function delete(int $id) : bool;
  * @return integer
  */
 function count() : int;
+```
+
+7. Format model data.
+
+```
+/**
+ * @param Model $model
+ * @return array
+ */
+function dataFormat(Model $model) : array;
 ```
 
 If you need to create another methods for your repository, fist register the method on the Interface, after implementing the method on Repository.
@@ -210,4 +270,33 @@ class UserRepository extends Repository implements UserRepositoryInterface
         return $users;
     }
 }
+```
+
+### **5. Unit Of Work methods**
+
+1. Begin the database transaction.
+
+```
+/**
+ * @return void
+ */
+function beginTransaction();
+```
+
+2. Commit the transaction changes.
+
+```
+/**
+ * @return void
+ */
+function commit();
+```
+
+3. Rollback the transaction changes.
+
+```
+/**
+ * @return void
+ */
+function rollback();
 ```
