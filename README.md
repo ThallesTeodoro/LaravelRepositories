@@ -1,22 +1,29 @@
 # LaravelRepositories
 ## Artisan commands to create repositories
 
-This package uses the Unit Of Work Pattern.
+This package provides an easy way to quickly setup and create a Repository using Unit Of Work Pattern.
 
-### **Requirements**
+1. [Requirements](#1-requirements)
+2. [Installation](#2-installation)
+3. [Configuration](#3-configuration)
+4. [Usage](#4-usage)
+5. [Default Repository Methods](#5-default-repository-methods)
+6. [Unit Of Work methods](#6-unit-of-work-methods)
+
+### **1. Requirements**
 - PHP >= 7.1.3
 - laravel/framework ^5.8
 
 ---
 
-### **1. Installation**
+### **2. Installation**
 Require the package using composer:
 
 ```
 composer require thalles/repositories-commands
 ```
 
-### **2. Configuration**
+### **3. Configuration**
 
 Run the following command to create the main Repository and Interface for this repository.
 
@@ -27,7 +34,7 @@ php artisan repository:setup
 > Pay attention to the terminal output. You will need to copy the output and paste on register method of AppServiceProvider.
 
 
-### **3. Usage**
+### **4. Usage**
 
 To create a new repository, use the following command.
 
@@ -127,7 +134,7 @@ class UserController extends Controller
 }
 ```
 
-### **4. Default Repository Methods**
+### **5. Default Repository Methods**
 
 This package makes available some methods to be used on CRUD.
 
@@ -272,7 +279,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
 }
 ```
 
-### **5. Unit Of Work methods**
+### **6. Unit Of Work methods**
 
 1. Begin the database transaction.
 
